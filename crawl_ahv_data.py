@@ -9,7 +9,11 @@ import scrapy
 import argparse
 import re
 import os
-import urllib.parse
+try:
+    from urllib.parse import urlparse
+except ImportError:
+     from urlparse import urlparse
+
 import time
 
 # 1) first step, using borough, block, lot
@@ -245,7 +249,7 @@ class BISSpider(scrapy.Spider):
             
 def getbbl(line):
 
-    borough = line[0]
+    borough = int(line[0])
     block = line[1:6]
     lot = line[6:]
 
@@ -256,10 +260,12 @@ def crawl(inputPath, outputPath, boroughs):
     infile = open(inputPath)
     permitUrls = []
     for line in infile:
-        tks = re.split(', | ', line.rstrip())
+        tks = re.split(',', line.rstrip())
         borough, block, lot = getbbl(tks[0])
+        print(borough, block, lot)
         if borough in boroughs:
             url = propertyBrowseUrl+"allborough="+str(borough)+"&allblock="+str(block)+"&alllot="+str(lot)
+            print(url)
             permitUrls.append(url)
 
 
