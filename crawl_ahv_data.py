@@ -51,7 +51,7 @@ class BISSpider(scrapy.Spider):
         'RETRY_TIMES': 100,
         'RETRY_HTTP_CODES': [500, 502, 504, 408, 403, 400, 429, 470],
         'HTTPCACHE_ENABLED': True,
-        'HTTPCACHE_DIR': './httpcache'
+        'HTTPCACHE_DIR': '/nfshome/shy256/projects/cs19_urban_noise/shared/dob-ahv-crawler/Data/http_cache'
     }
     handle_httpstatus_list = [503]
     start_urls = []
